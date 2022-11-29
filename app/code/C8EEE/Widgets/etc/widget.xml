@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--
+ Copyright © 2022 - Code Infinity. All rights reserved.
+ See LICENSE.txt for license details.
+
+ @author Justin Bruce <justin@codeinfinity.co.za>
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:helloworld:Magento_Widget:etc/widget.xsd">
+    <!-- Brochure -->
+    <widget class="C8EEE\Widgets\Block\Widget\Brochure" id="c8eee_widgets_brochure">
+        <label>Guzzle - Brochure</label>
+        <description>Guzzle Brochure</description>
+    </widget>
+</widgets>
