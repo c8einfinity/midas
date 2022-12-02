@@ -5,9 +5,11 @@
  * See COPYING.txt for license details.
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Link" name="top_left_info" template="Magento_Theme::account/link/top_left_info.phtml" before="-" />
             <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
                 <arguments>
                     <argument name="css_class" xsi:type="string">header links</argument>
@@ -15,23 +17,31 @@
             </block>
         </referenceContainer>
 
-        <referenceBlock name="register-link">
-            <arguments>
-                <argument name="label" xsi:type="string" translate="true">Sign in or Create an Account</argument>
-        	</arguments>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="social_links" template="Magento_Theme::account/link/social_links.phtml" after="-"/>
+            <block class="Magento\Customer\Block\Account\Customer" name="customer" template="Magento_Theme::account/customer.phtml" before="authorization-link-login" />
+            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="Magento_Theme::account/link/authorization.phtml" before="social_links">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">10</argument>
+                </arguments>
+            </block>
         </referenceBlock>
 
         <referenceContainer name="footer" remove="true">
-            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links"
+                   template="Magento_Store::switch/stores.phtml"/>
         </referenceContainer>
         <referenceContainer name="footer-container" remove="true"/>
         <referenceBlock name="copyright" remove="true"/>
         <referenceBlock name="report.bugs" remove="true"/>
 
+        <move element="header" destination="header.links" before="-" />
+        <move element="register-link" destination="header.links" before="social_links" />
+        <move element="top.links" destination="customer" />
         <move element="copyright" destination="before.body.end"/>
 
         <referenceContainer name="before.body.end">
-            <block class="Magento\Theme\Block\Html\Header" name="dp_footer" template="Magento_Theme::dp_footer.phtml"  />
+            <block class="Magento\Theme\Block\Html\Header" name="dp_footer" template="Magento_Theme::dp_footer.phtml"/>
         </referenceContainer>
 
     </body>

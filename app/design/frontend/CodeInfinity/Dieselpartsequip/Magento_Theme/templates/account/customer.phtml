@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var Magento\Customer\Block\Account\Customer $block */
+?>
+<?php if ($block->customerLoggedIn()) : ?>
+    <li>
+        <a href="https://dp-equip.co.za/customer/account/">
+            <i class="fas fa-user"></i> My Account
+        </a>
+    </li>
+    <li class="authorization-link">
+        <a href="https://dp-equip.co.za/customer/account/logout"> <i class="fas fa-sign-out"></i> Sign Out
+        </a>
+    </li>
+<?php endif; ?>
