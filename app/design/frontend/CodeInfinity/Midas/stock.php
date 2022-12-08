@@ -17,14 +17,11 @@ if (file_exists($fileName) || file_exists($otherFile)) {
 	    $contents = array_merge ($contents, $otherContents);
     }	    
 
-    
-
-    
     foreach ($contents as $id => $line) {
         $line = explode("\t", $line);
         if (!empty($line[1])) {
-            if ($line[1] > 2) {
-                $productList[$line[0]] = $line[1];
+            if ($line[1] > 10) {
+                $productList[trim($line[0])] = $line[1];
             }
         }
     }

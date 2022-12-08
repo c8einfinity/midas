@@ -7,6 +7,7 @@ use Magento\Framework\App\Action\Action;
 require_once "./app/design/frontend/CodeInfinity/Midas/stock.php";
 global $productPromotionCategory;
 global $globalInStoreButton;
+
 ?>
 <?php
 // phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
@@ -81,7 +82,10 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                         <div class="product-item-inner">
                             <div class="product actions product-item-actions"<?= strpos($pos, $viewMode . '-actions') ? $block->escapeHtmlAttr($position) : '' ?>>
                                 <div class="actions-primary"<?= strpos($pos, $viewMode . '-primary') ? $block->escapeHtmlAttr($position) : '' ?>>
-                                    <?php if ($_product->isSaleable()) :?>
+                                    <?php if ($_product->isSaleable()) :
+                                        $categories = $_product->getAvailableInCategories();
+                                        ?>
+
                                         <?php $postParams = $block->getAddToCartPostParams($_product); ?>
                                         <form data-role="tocart-form"
                                               data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
@@ -94,7 +98,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                                    value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
                                             <?= $block->getBlockHtml('formkey') ?>
                                             <?php
-                                            if (in_array(1025,$_product->getCategoryIds())) { //!empty($productList) && !empty($productList[$_product->getSku()])
+                                            if (!empty($productList) && !empty($productList[$_product->getSku()]) && in_array($productPromotionCategory, $categories)) {
                                             ?>
                                             <button type="submit"
                                                     title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
@@ -115,7 +119,10 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                                         <?php if ($_product->isAvailable()) :?>
                                             <div class="stock available"><span><?= $block->escapeHtml(__('In stock')) ?></span></div>
                                         <?php else :?>
-                                            <div class="stock unavailable"><span><?= $block->escapeHtml(__('Out of stock')) ?></span></div>
+                                            <?php
+                                                echo $globalInStoreButton;
+                                            ?>
+
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </div>

@@ -53,8 +53,6 @@ global $globalInStoreButton;
                                     <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
                                 <?php endif; ?>
 
-                                <?= $block->getProductPriceHtml($_item, $type) ?>
-
                                 <?= $block->getProductDetailsHtml($_item) ?>
 
                                 <?php if ($showWishlist || $showCompare || $showCart) : ?>
@@ -69,8 +67,9 @@ global $globalInStoreButton;
                                                             <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
                                                             <?= $block->getBlockHtml('formkey') ?>
                                                             <?php
-                                                            if (in_array(1025,$_item->getCategoryIds())) { //!empty($productList) && !empty($productList[$_item->getSku()])
+                                                            if (!empty($productList) && !empty($productList[$_item->getSku()]) && in_array(1025,$_item->getCategoryIds())) { //)
                                                             ?>
+                                                            <?= $block->getProductPriceHtml($_item, $type); ?>
                                                             <button type="submit"
                                                                     title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
                                                                     class="action tocart primary">

@@ -20,7 +20,7 @@
         <referenceBlock name="header.links">
             <block class="Magento\Framework\View\Element\Html\Link" name="social_links" template="Magento_Theme::account/link/social_links.phtml" after="-"/>
             <block class="Magento\Customer\Block\Account\Customer" name="customer" template="Magento_Theme::account/customer.phtml" before="authorization-link-login" />
-            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="Magento_Theme::account/link/authorization.phtml" before="social_links">
+            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-login" template="Magento_Theme::account/link/authorization.phtml"  before="social_links">
                 <arguments>
                     <argument name="sortOrder" xsi:type="number">10</argument>
                 </arguments>

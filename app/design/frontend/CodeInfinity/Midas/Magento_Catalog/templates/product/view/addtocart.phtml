@@ -9,12 +9,13 @@ require_once "./app/design/frontend/CodeInfinity/Midas/stock.php";
 global $productPromotionCategory;
 global $globalInStoreButton;
 global $productList;
+
 ?>
 <?php $_product = $block->getProduct(); ?>
 <?php $buttonTitle = __('Add to Cart'); ?>
 <?php
 $sku = $_product->getSku();
-if (in_array(1025,$_product->getCategoryIds())) {//!empty($productList) && !empty($productList[$sku])
+if (!empty($productList) && !empty($productList[$sku]) && in_array(1025,$_product->getCategoryIds())) {
 ?>
 <?php if ($_product->isSaleable()) :?>
 <div class="box-tocart">
@@ -62,5 +63,7 @@ if (in_array(1025,$_product->getCategoryIds())) {//!empty($productList) && !empt
 <?php
 } else {
     echo $globalInStoreButton;
+    echo '<script>document.getElementsByClassName("stock available")[0].style.visibility = "hidden";</script>';
+    echo '<script>document.getElementsByClassName("stock unavailable")[0].style.visibility = "hidden";</script>';
 }
 ?>

@@ -6,7 +6,6 @@
 ?>
 <?php
 /** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
-
 /** ex: \Magento\Catalog\Pricing\Price\RegularPrice */
 /** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
 $priceModel = $block->getPriceType('regular_price');
@@ -19,7 +18,7 @@ $_product = $block->getPriceType('final_price')->getProduct();
 $categories = $_product->getAvailableInCategories();
 require_once "./app/design/frontend/CodeInfinity/Midas/stock.php";
 global $productPromotionCategory;
-if (!empty($productList) && !empty($productList[$_product->getSku()]) || in_array($productPromotionCategory, $categories) ) {
+if (!empty($productList) && !empty($productList[$_product->getSku()]) && in_array($productPromotionCategory, $categories) ) {
 ?>
 <?php if ($block->hasSpecialPrice()) :?>
     <span class="special-price">
@@ -64,7 +63,12 @@ if (!empty($productList) && !empty($productList[$_product->getSku()]) || in_arra
     <span style="font-size: 15px; font-weight: 600!important; color: black;white-space: nowrap;">Exclusive Online Price</span>
 <?php endif;?>
 <?php
-} else {
-
-}
-?>
+} else { ?>
+    <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+        'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type'        => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema
+    ]); ?>
+    <?php
+} ?>
